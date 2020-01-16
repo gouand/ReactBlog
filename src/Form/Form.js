@@ -12,8 +12,6 @@ class Form extends React.Component {
     // eslint-disable-next-line
     constructor(props) {
         super(props);
-        this.onSubmit = this.onSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
         this.state = {
             data: JSON.stringify(localStorage.getItem('localData')),
             id: '',
@@ -23,6 +21,8 @@ class Form extends React.Component {
             errorMessage: '',
             successMessage: '',
         };
+        this.onSubmit = this.onSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
@@ -47,7 +47,9 @@ class Form extends React.Component {
                 errorMessage: "Укажите название статьи!",
                 successMessage: ''
             });
-            await setTimeout(async () => (this.setState({ errorMessage: '' })), 8000);
+            await setTimeout(async () => (this.setState({ 
+                errorMessage: '' 
+            })), 8000);
             return;
         }
 
@@ -56,7 +58,9 @@ class Form extends React.Component {
                 errorMessage: "Укажите текст статьи!",
                 successMessage: ''
             });
-            await setTimeout(async () => (this.setState({ errorMessage: '' })), 6000);
+            await setTimeout(async () => (this.setState({ 
+                errorMessage: '' 
+            })), 6000);
             return;
         }
 
@@ -93,12 +97,34 @@ class Form extends React.Component {
     render() {
         return (
             <form id="post-add" className="col-lg-4">
-                {this.state.errorMessage === '' ? '' : <ErrorMessage message={this.state.errorMessage} />}
-                {this.state.successMessage === '' ? '' : <SuccessMessage message={this.state.successMessage} />}
-                <Input type="text" name="title" value={this.state.title} placeholder="Заголовок" onChange={e => this.handleChange(e)} />
-                <Input type="text" name="body" value={this.state.body} placeholder="запись" onChange={e => this.handleChange(e)} />
-                <Input type="text" name="tags" value={this.state.tags} placeholder="тег, еще тег" onChange={e => this.handleChange(e)} />
-                <button type="submit" onClick={(e) => this.onSubmit(e)} className="btn btn-primary">Добавить</button>
+
+                {this.state.errorMessage === '' ? 
+                        '' : <ErrorMessage message={this.state.errorMessage} />}
+                {this.state.successMessage === '' ? 
+                        '' : <SuccessMessage message={this.state.successMessage} />}
+
+                <Input 
+                    type="text" 
+                    name="title" 
+                    value={this.state.title} 
+                    placeholder="Заголовок" 
+                    onChange={e => this.handleChange(e)} />
+                <Input 
+                    type="text" 
+                    name="body" 
+                    value={this.state.body} 
+                    placeholder="запись" 
+                    onChange={e => this.handleChange(e)} />
+                <Input 
+                    type="text" 
+                    name="tags" 
+                    value={this.state.tags} 
+                    placeholder="тег, еще тег" 
+                    onChange={e => this.handleChange(e)} />
+                <button 
+                    type="submit" 
+                    onClick={(e) => this.onSubmit(e)} 
+                    className="btn btn-primary">Добавить</button>
             </form>
         );
     }

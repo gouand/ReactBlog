@@ -25,7 +25,8 @@ class SuccessMessage extends React.Component {
     render() {
         return (
             <div>
-                {this.state.isShow ? <div className="alert alert-success">{this.props.message}</div> : ''}
+                {this.state.isShow ? 
+                        <div className="alert alert-success">{this.props.message}</div> : ''}
             </div>
         )
     }
