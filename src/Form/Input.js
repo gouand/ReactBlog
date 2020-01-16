@@ -18,7 +18,12 @@ class Input extends React.Component {
     render() {
         return (
             <div className="form-group">
-                <input type={this.props.type} onChange={this.props.onChange} className="form-control" name={this.props.name} placeholder={this.props.placeholder} />
+                <input 
+                    type={this.props.type} 
+                    onChange={this.props.onChange} 
+                    className="form-control" 
+                    name={this.props.name} 
+                    placeholder={this.props.placeholder} />
             </div>
         )
     }

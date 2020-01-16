@@ -23,7 +23,9 @@ class App extends React.Component {
 
   updateData = (value) => {
     localStorage.setItem('localData', JSON.stringify(value[0]));
-    this.setState({ data: JSON.parse(localStorage.getItem('localData')) });
+    this.setState({ 
+      data: JSON.parse(localStorage.getItem('localData')) 
+    });
   }
   /*
    * Удаление записей
@@ -35,7 +37,9 @@ class App extends React.Component {
     });
 
     localStorage.setItem('localData', JSON.stringify(data));
-    this.setState({ data: JSON.parse(localStorage.getItem('localData')) });
+    this.setState({ 
+      data: JSON.parse(localStorage.getItem('localData')) 
+    });
   }
   render() {
     // Генерация постов из localStorage
@@ -44,7 +48,14 @@ class App extends React.Component {
         <div id="posts" className="well">
           {this.state.data.map((post, i) => {
             return (
-              <Post title={post.title} removeOnClick={this.removeOnClick} text={post.body} tags={post.tags} key={i} id={post.id} />
+              <Post 
+                  title={post.title} 
+                  removeOnClick={this.removeOnClick} 
+                  text={post.body}
+                  tags={post.tags}
+                  key={i} 
+                  id={post.id} 
+              />
             )
           })}
         </div>
