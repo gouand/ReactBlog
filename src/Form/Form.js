@@ -3,9 +3,14 @@ import Input from './Input';
 import ErrorMessage from '../Messages/ErrorMessage';
 import SuccessMessage from '../Messages/SuccessMessage';
 
-class Form extends React.Component{
+
+/*
+ * Компонент формы добавления статей в блог
+*/
+
+class Form extends React.Component {
     // eslint-disable-next-line
-    constructor(props){
+    constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -20,57 +25,47 @@ class Form extends React.Component{
         };
     }
 
-    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-    componentWillMount(){
+    componentDidMount() {
         setTimeout(() => {
             this.setState({
                 successMessage: ''
             });
         }, 3000)
-        }
+    }
 
 
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         });
-        console.log("Hello")
     }
 
-    isEmpty(obj) {
-        for (let key in obj) {
-          // если тело цикла начнет выполняться - значит в объекте есть свойства
-          return false;
-        }
-        return true;
-      }
-
-   async onSubmit(e){
+    async onSubmit(e) {
         e.preventDefault();
-        if(!this.state.title){
-            this.setState({ 
+        if (!this.state.title) {
+            this.setState({
                 errorMessage: "Укажите название статьи!",
                 successMessage: ''
             });
-            await setTimeout(async() => (this.setState({errorMessage: ''})), 8000);
+            await setTimeout(async () => (this.setState({ errorMessage: '' })), 8000);
             return;
         }
 
-        if(!this.state.body){
-            this.setState({ 
+        if (!this.state.body) {
+            this.setState({
                 errorMessage: "Укажите текст статьи!",
                 successMessage: ''
             });
-            await setTimeout(async() => (this.setState({errorMessage: ''})), 6000);
+            await setTimeout(async () => (this.setState({ errorMessage: '' })), 6000);
             return;
         }
 
-        if(!this.state.tags){
-            this.setState({ 
+        if (!this.state.tags) {
+            this.setState({
                 errorMessage: "Добавьте теги к статье!",
                 successMessage: ''
             });
-            await setTimeout( async() => (this.setState({errorMessage: ''})), 7000);
+            await setTimeout(async () => (this.setState({ errorMessage: '' })), 7000);
             return;
         }
 
@@ -83,13 +78,11 @@ class Form extends React.Component{
             id: data[0].length + 1,
             title: this.state.title,
             body: this.state.body,
-            tags:  this.state.tags.toString().split(',')
+            tags: this.state.tags.toString().split(',')
         });
-        console.log(this.state.tags.toString().split(','));
         this.setState({
             data: data
         });
-       // localStorage.setItem('localData',JSON.stringify(this.state.data));
         this.props.updateData(data);
         this.setState({
             successMessage: "Запись успешно добавлена",
@@ -97,13 +90,12 @@ class Form extends React.Component{
         })
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <form id="post-add" className="col-lg-4">
-
-             {this.state.errorMessage === '' ? '' :  <ErrorMessage message={this.state.errorMessage}/>}
-             {this.state.successMessage === '' ? '' :  <SuccessMessage message={this.state.successMessage}/>}
-                <Input type="text" name="title" value={this.state.title} placeholder="Заголовок"  onChange={e => this.handleChange(e)} />
+                {this.state.errorMessage === '' ? '' : <ErrorMessage message={this.state.errorMessage} />}
+                {this.state.successMessage === '' ? '' : <SuccessMessage message={this.state.successMessage} />}
+                <Input type="text" name="title" value={this.state.title} placeholder="Заголовок" onChange={e => this.handleChange(e)} />
                 <Input type="text" name="body" value={this.state.body} placeholder="запись" onChange={e => this.handleChange(e)} />
                 <Input type="text" name="tags" value={this.state.tags} placeholder="тег, еще тег" onChange={e => this.handleChange(e)} />
                 <button type="submit" onClick={(e) => this.onSubmit(e)} className="btn btn-primary">Добавить</button>
